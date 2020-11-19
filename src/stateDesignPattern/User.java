@@ -19,16 +19,6 @@ public class User {
 public static void main(String[] args) {
 	
 		Canvas canvas = new Canvas();
-		
-		State redState = new RedState();
-		State greenState = new GreenState();
-		State blackState = new BlackState();
-		State blueState = new BlueState();
-		
-		Color green = Color.green; 
-		Color red = Color.red; 
-		Color black = Color.black; 
-		Color blue = Color.blue;
 	
 		JButton btnPush = new JButton("Push"); 
 		JButton btnPull = new JButton("Pull"); 
@@ -49,7 +39,7 @@ public static void main(String[] args) {
 		pnlControl.setLayout(new GridLayout(1, 3));
 				
 		
-		pnlColored.setBackground(red);
+		pnlColored.setBackground(canvas.getState().getColor());
 		
 		pnlControl.add(btnPush);  
 		pnlControl.add(btnPull);  
@@ -76,60 +66,24 @@ public static void main(String[] args) {
 		btnPush.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)
 		    {
-		    	switch(canvas.getState().toString()) {
-		    	  case "Red":
-		    		  blueState.setFor(canvas);
-		    		  newColor = blue; 
-		    		  break;
-		    	  case "Green":
-		    		  blackState.setFor(canvas);
-		    		  newColor = black; 
-		    		  break;
-		    	  case "Black":
-		    		  redState.setFor(canvas);
-		    		  newColor = red; 
-		    		  break;
-		    	  case "Blue":
-		    		  greenState.setFor(canvas);
-		    		  newColor = green; 
-		    		  break;
-		    	  default:
-		    		  redState.setFor(canvas);
-		    		  newColor = red; 
-		    	}
+		    	
+		    	State activeState = canvas.getState();
+		    	activeState.handlePush(canvas);
 		    	
 		    	System.out.println("Push action, setting color to: " + canvas.getState().toString());
-		    	pnlColored.setBackground(newColor);
+		    	pnlColored.setBackground(canvas.getState().getColor());
 		    }
 		});
 		
 		btnPull.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)
 		    {
-		    	switch(canvas.getState().toString()) {
-		    	  case "Red":
-		    		  greenState.setFor(canvas);
-		    		  newColor = green; 
-		    		  break;
-		    	  case "Green":
-		    		  blueState.setFor(canvas);
-		    		  newColor = blue; 
-		    		  break;
-		    	  case "Black":
-		    		  redState.setFor(canvas);
-		    		  newColor = red; 
-		    		  break;
-		    	  case "Blue":
-		    		  blackState.setFor(canvas);
-		    		  newColor = black; 
-		    		  break;
-		    	  default:
-		    		  redState.setFor(canvas);
-		    		  newColor = red; 
-		    	}
+		    	
+		    	State activeState = canvas.getState();
+		    	activeState.handlePull(canvas);
 		    	
 		    	System.out.println("Pull action, setting color to: " + canvas.getState().toString());
-		    	pnlColored.setBackground(newColor);
+		    	pnlColored.setBackground(canvas.getState().getColor());
 		    }
 		});
 		

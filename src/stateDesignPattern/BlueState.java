@@ -1,11 +1,23 @@
 package stateDesignPattern;
 
+import java.awt.Color;
+
 public class BlueState implements State{
 
 
 	@Override
-	public void setFor(Canvas canvas) {
-		canvas.setState(this);
+	public void handlePush(Canvas canvas) {
+		canvas.setState(new GreenState());
+	}
+	
+	@Override
+	public void handlePull(Canvas canvas) {
+		canvas.setState(new BlackState());
+	}
+	
+	@Override
+	public Color getColor() {
+		return Color.BLUE;
 	}
 	
 	@Override
